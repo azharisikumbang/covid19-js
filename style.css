@@ -1,13 +1,31 @@
+:root {
+	--white : #fff;
+	--black : #000;
+	--green : #2ecc71;
+	--red : #e74c3c;
+	--yellow: #f1c40f;
+	--orange : #e67e22;
+	--silver : #bdc3c7;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
 body {
 	font-family: "arial", sans-serif;
 	font-size: 16px;
 	inline-size: 20px;
+	width: 100%;
+	overflow-x: hidden;
 }
 #nav {
 	width: 960px;
 	box-sizing: border-box;
 	margin: 0 auto;
 	text-align: center;
+	margin: 20px auto;
 }
 #nav ul li {
 	display: inline-table;
@@ -19,9 +37,87 @@ body {
 	color: #000;
 	font-size: x-large;
 }
+
+/* App */
 #app {
     width: 960px;
     box-sizing: border-box;
     margin: 30px auto;
     overflow-x: auto;
+}
+
+/* Global Status */
+#app ul.global-wrapper li {
+	display: inline-table;
+	width: 31%;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px 20px;
+	color:white;
+	margin: 0 1%;
+}
+
+#app ul.global-wrapper li .title {
+	font-size: 18px;
+}
+
+#app ul.global-wrapper li .value {
+	font-size: 38px;
+	text-align: right;
+	margin-top: 10px;
+}
+
+/* Global Countries Table */
+#app table.global-data {
+	margin: 20px auto;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#app table.global-data caption {
+	margin: 10px;
+}
+
+#app table.global-data thead tr td {
+	padding: 12px 16px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#app table.global-data tr td {
+	padding: 8px 12px;
+	text-align:right;
+}
+
+#app table.global-data tr td:nth-child(2) {
+	text-align: left;
+}
+
+#app table.global-data tr td:first-child {
+	text-align: center;
+}
+
+
+
+/* Class Config */
+.bg-white {
+	background-color: var(--white);
+}
+.bg-black {
+	background-color: var(--black);
+}
+.bg-green {
+	background-color: var(--green);
+}
+.bg-red {
+	background-color: var(--red);
+}
+.bg-yellow {
+	background-color: var(--yellow);
+}
+.bg-orange {
+	background-color: var(--orange);
+}
+.bg-silver {
+	background-color: var(--silver);
 }
