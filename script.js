@@ -1,121 +1,88 @@
+let defaultRenderedElement, idRenderedElement, aboutRenderedElement, createdElement, tableCellTitle, ul;
 const apiUrl = "https://api.kawalcorona.com/";
-let createdBerandaListElement = document.createElement("div");
-let createdBerandaTableElement = document.createElement("div");
 
-
-const Data = {
-    global: {
-        all: [],
-        status : {
-            confirmed: 0,
-            deaths: 0,
-            recovered: 0
-        }
-    },
-    indonesia: {
-        all : {},
-        provinces: []
-    }
-}
-
-const fetchData = async (url) => {
-    const response = await fetch(url);
+async function request(url = null){
+    const response = await fetch(apiUrl + url);
     const json = await response.json()
     return await json;
 }
 
+async function renderDefaultElement(){
+    console.log("default");
 
-// Indonesia Data
-async function setIndonesia(){
-    app.innerHTML = "Loading Data..";
-    const createdIndonesiaListElement = document.createElement("div");
-    let createdIndonesiaTableElement = document.createElement("div");
+    // Set created Element
+    defaultRenderedElement = document.createElement("div");
 
-    const ul = document.createElement("ul");
+    // Set Element
+    ul = document.createElement("ul");
     ul.classList.add("global-wrapper");
 
-    if (Object.keys(Data.indonesia.all).length == 0) {
-        const urlIndonesia = `${apiUrl}indonesia/`;
-        await fetchData(urlIndonesia)
-            .then(res => {
-                // Create Confirmed
-                createdIndonesiaListElement.append(globalCreateListElement("Total Positif", res[0].positif, "bg-yellow"));
-                // Create Recovered
-                createdIndonesiaListElement.append(globalCreateListElement("Total Sembuh", res[0].sembuh, "bg-green"));
-                // Create Deaths
-                createdIndonesiaListElement.append(globalCreateListElement("Total Meninggal", res[0].meninggal, "bg-red"));
+    // Request Data Positif
+    await request("positif/")
+        .then(res => {
+            ul.append(createList(res.name, res.value, "bg-yellow"))
+        });
 
-            });
-    }
+    // Request Data Recovered
+    await request("sembuh/")
+        .then(res => {
+            ul.append(createList(res.name, res.value, "bg-green"))
+        });
 
-    if(Data.indonesia.provinces.length == 0) {
-        const urlIndonesiaProv = `${apiUrl}indonesia/provinsi/`;
-        await fetchData(urlIndonesiaProv)
-            .then(res => {
+    // Request Data Deaths
+    await request("meninggal/")
+        .then(res => {
+            ul.append(createList(res.name, res.value, "bg-red"))
+        });
 
-                const tableCellTitle = ["No", "Provinsi", "Positif", "Sembuh", "Meninggal"];
-                createdIndonesiaTableElement = globalCreateTableElement(res, tableCellTitle, "Data Perkembangan Covid19 Di Indonesia", false);
-            });
-    }
+    // Request Data All
+    await request()
+        .then(res => {
+            tableCellTitle = ["No", "Negara", "Positif", "Sembuh", "Meninggal"];
+            defaultRenderedElement.append(creteTable(res, tableCellTitle, "Data Perkembangan Covid19 Di Dunia"))
+        });
 
-    app.innerHTML = "";
-    ul.append(createdIndonesiaListElement);
-    app.append(ul);
-    app.append(createdIndonesiaTableElement);
+
+    defaultRenderedElement.prepend(ul);
+    // Load to document
+    app.innerHTML = defaultRenderedElement.innerHTML;
 }
 
+async function renderIndonesiaElement(){
+    console.log("indonesia");
 
+    // set created Element
+    idRenderedElement = document.createElement("div");
 
-// Bedanda Data
-async function setBeranda() {
-    app.innerHTML = "Loading Data";
-
-    // Create Status Element
-    const ul = document.createElement("ul");
-    ul.classList.add("global-wrapper")
-
-    if (Data.global.status.confirmed == 0) {
-        const urlPositif = `${apiUrl}positif/`;
-        await fetchData(urlPositif)
-            .then(res => {
-                createdBerandaListElement.append(globalCreateListElement(res.name, res.value, "bg-yellow"));
-            });
-    }
-
-    if (Data.global.status.recovered == 0) {
-        const urlRecovered = `${apiUrl}sembuh/`;
-        await fetchData(urlRecovered)
-            .then(res => {
-                createdBerandaListElement.append(globalCreateListElement(res.name, res.value, "bg-green"));
-            });
-    }
-
-    if (Data.global.status.deaths == 0) {
-        const urlDeaths = `${apiUrl}meninggal/`;
-        await fetchData(urlDeaths)
-            .then(res => {
-                createdBerandaListElement.append(globalCreateListElement(res.name, res.value, "bg-red"));
-            });
-    }
-
+    // Set Element
+    ul = document.createElement("ul");
+    ul.classList.add("global-wrapper");
     
-    // Create Table Countries
-    if(Data.global.all.length == 0) {
-        await fetchData(apiUrl)
-            .then(res => {
-                const tableCellTitle = ["No", "Negara", "Positif", "Sembuh", "Meninggal"];
-                createdBerandaTableElement = globalCreateTableElement(res, tableCellTitle, "Data Perkembangan Covid19 Di Dunia");
-            });
-    }
+    // Request Id Data
+    await request("indonesia/")
+        .then(res => {
+            // Create Confirmed
+            ul.append(createList("Total Positif", res[0].positif, "bg-yellow"));
+            // Create Recovered
+            ul.append(createList("Total Sembuh", res[0].sembuh, "bg-green"));
+            // Create Deaths
+            ul.append(createList("Total Meninggal", res[0].meninggal, "bg-red"));
+        });
 
-    app.innerHTML = "";
-    ul.append(createdBerandaListElement);
+    // Request Provinces Data 
+    await request("indonesia/provinsi/")
+        .then(res => {
+            tableCellTitle = ["No", "Provinsi", "Positif", "Sembuh", "Meninggal"];
+            idRenderedElement.append(creteTable(res, tableCellTitle, "Data Perkembangan Covid19 Di Indonesia", false));
+        })
 
-    app.append(ul);
-    app.append(createdBerandaTableElement);
+
+    idRenderedElement.prepend(ul);
+    // Load to document
+    app.innerHTML = idRenderedElement.innerHTML;
 }
 
-function globalCreateListElement(title, data, classname) {
+function createList(title, data, classname) {
 
     let li, liValueEl, liTitleEl, liValue, liTitle;
     li = document.createElement("li");
@@ -138,7 +105,8 @@ function globalCreateListElement(title, data, classname) {
     return li;
 }
 
-function globalCreateTableElement(data, tableTitle, tableCaption, world = true){
+
+function creteTable(data, tableTitle, tableCaption, world = true){
     let table, tableValue;
 
     table = document.createElement("table");
@@ -204,23 +172,29 @@ function globalCreateTableElement(data, tableTitle, tableCaption, world = true){
 
     return table;
 }
-
     
 document.addEventListener('DOMContentLoaded', function(){ 
     const app = document.getElementById("app");
-    setBeranda();
+
+    renderDefaultElement();
     
     const berandaTrigger = document.getElementById("nav-beranda-trigger");
     const indonesiaTrigger = document.getElementById("nav-indonesia-trigger");
 
-    berandaTrigger.addEventListener("click", function(e) {
-        e.preventDefault();
-        setBeranda();
+    berandaTrigger.addEventListener("click", function() {
+        if (typeof defaultRenderedElement == "undefined") {
+            renderDefaultElement();
+        } else {
+            app.innerHTML = defaultRenderedElement.innerHTML;
+        }
     })
 
-    indonesiaTrigger.addEventListener("click", function(e) {
-        e.preventDefault();
-        setIndonesia();
+    indonesiaTrigger.addEventListener("click", function() {
+         if (typeof idRenderedElement == "undefined") {
+            renderIndonesiaElement();
+        } else {
+            app.innerHTML = idRenderedElement.innerHTML;
+        }
     })
 
 }, false);
