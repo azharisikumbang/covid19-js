@@ -27,7 +27,7 @@ const fetchData = async (url) => {
 
 // Indonesia Data
 async function setIndonesia(){
-    app.innerHTML = "";
+    app.innerHTML = "Loading Data..";
     const createdIndonesiaListElement = document.createElement("div");
     let createdIndonesiaTableElement = document.createElement("div");
 
@@ -58,6 +58,7 @@ async function setIndonesia(){
             });
     }
 
+    app.innerHTML = "";
     ul.append(createdIndonesiaListElement);
     app.append(ul);
     app.append(createdIndonesiaTableElement);
@@ -67,7 +68,7 @@ async function setIndonesia(){
 
 // Bedanda Data
 async function setBeranda() {
-    app.innerHTML = "";
+    app.innerHTML = "Loading Data";
 
     // Create Status Element
     const ul = document.createElement("ul");
@@ -107,7 +108,7 @@ async function setBeranda() {
             });
     }
 
-
+    app.innerHTML = "";
     ul.append(createdBerandaListElement);
 
     app.append(ul);
@@ -207,8 +208,21 @@ function globalCreateTableElement(data, tableTitle, tableCaption, world = true){
     
 document.addEventListener('DOMContentLoaded', function(){ 
     const app = document.getElementById("app");
-    // setBeranda();
-    setIndonesia();
+    setBeranda();
+    
+    const berandaTrigger = document.getElementById("nav-beranda-trigger");
+    const indonesiaTrigger = document.getElementById("nav-indonesia-trigger");
+
+    berandaTrigger.addEventListener("click", function(e) {
+        e.preventDefault();
+        setBeranda();
+    })
+
+    indonesiaTrigger.addEventListener("click", function(e) {
+        e.preventDefault();
+        setIndonesia();
+    })
+
 }, false);
 
 
