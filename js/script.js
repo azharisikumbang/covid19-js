@@ -249,6 +249,9 @@ async function renderMapElement(){
 
     mapRenderedElement = document.createElement("div");
 
+    const mapTitle = document.createElement("h3");
+    mapTitle.innerHTML = "Peta Sebaran Positif Per Provinsi";
+
     await setProvinces();
 
     await fetch(config.url.geoJSON)
@@ -287,7 +290,6 @@ async function renderMapElement(){
             .data(topojson.feature(data, data.objects.states_provinces).features)
             .enter()
             .append("path")
-            .on("on", mapClicked)
             .attr("d", path)
             .attr("stroke", "#000")
             .attr("stroke-width", "0.4")
@@ -317,24 +319,36 @@ async function renderMapElement(){
         const mapStatus = document.createElement("div");
         mapStatus.classList.add("map-status-display");
 
-        const statusText = ["lokasi", "positif", "sembuh", "meninggal"];
+        const statusText = ["normal", "waspada", "siaga", "awas"];
+        let statusIndicator;
 
         statusText.map(e => {
             let span = document.createElement("span")
-            span.classList.add(e)
-            let spanTextPrefix = " Orang";
+            span.classList.add(e);
+            switch(e) {
+                case 'normal':
+                  statusIndicator = " 0 atau tidak terdata";
+                  break;
+                case 'waspada':
+                  statusIndicator = " <= 10 Kasus";
+                  break;
+                case 'siaga':
+                  statusIndicator = " <= 100 Kasus";
+                  break;
+                case 'awas':
+                  statusIndicator = " >= 100 Kasus";
+                  break;
+            }
 
-            let spanChild = document.createElement("span")
-            let spanChildText = " - ";
-            spanChild.append(spanChildText);
-            
-            span.append(e + " :")
-            span.append(spanChild)
-            if(e != "lokasi") span.append(spanTextPrefix)
-            mapStatus.append(span)
+            let spanChild = document.createElement("span");
+            span.append(spanChild);
+            span.append(statusIndicator);
+            mapStatus.append(span);
+
         });
 
 
+        mapRenderedElement.append(mapTitle)
         mapRenderedElement.append(svg._groups[0][0])
         mapRenderedElement.append(mapStatus)
 
@@ -344,7 +358,18 @@ async function renderMapElement(){
 }
 
 function renderAboutElement(){
-    alert("Halaman ini dibuat berdasarkan data dari https://kawalcorona.com");
+  aboutRenderedElement = document.createElement("div");
+
+  const title = document.createElement("h3");
+  title.innerHTML = "Tentang Aplikasi Monitoring Covid19 Coronavirus";
+
+  const p = document.createElement("p");
+  p.innerHTML = "Halaman ini dibuat dengan tujuan mempermudah dalam penyajian informasi tentang covid19 coronavirus di dunia, utamanya Indonesia. <br> Data didapatkan berdasarkan API dari https://kawalcorona.com <br> <br>Data Source : <a href=https://api.kawalcorona.com/ target=_blank>https://api.kawalcorona.com</a> <br>Source Code : <a href=#>githublink</a><br>Info Update Covid : <a href=https://www.covid19.go.id/ target=_blank>https://www.covid19.go.id/</a><br><br>Made with &hearts; by <a href=https://coretanit.com/author/azhari/ target=_blank>Azhari</a>";
+
+  aboutRenderedElement.append(title)
+  aboutRenderedElement.append(p)
+
+  app.innerHTML = aboutRenderedElement.innerHTML
 }
 
 async function setProvinces(){
@@ -451,22 +476,6 @@ function creteTable(data, tableTitle, tableCaption, world = true){
     return table;
 }
 
-function mapClicked(d){
-    console.log("App")
-    const provinceObjID = d.properties.OBJECTID_1;
-
-    const provinceName = document.querySelector(".map-status-display .lokasi span");
-    const provincePositif = document.querySelector(".map-status-display .positif span");
-    const provinceSembuh = document.querySelector(".map-status-display .sembuh span");
-    const provinceMeninggal = document.querySelector(".map-status-display .meninggal span");
-
-    provinceName.innerHTML = (typeof d.properties.name == "undefined") ? "Lokasi Tidak Ditemukan" : d.properties.name ;
-    provincePositif.innerHTML =(typeof d.properties.Kasus_Posi == "undefined") ? "0" : d.properties.Kasus_Posi;
-    provinceSembuh.innerHTML = (typeof d.properties.Kasus_Semb == "undefined") ? "0" : d.properties.Kasus_Semb;
-    provinceMeninggal.innerHTML = (typeof d.properties.Kasus_Meni == "undefined") ? "0" : d.properties.Kasus_Meni;
-
-}
-    
 document.addEventListener('DOMContentLoaded', function(){ 
     const app = document.getElementById("app");
 
