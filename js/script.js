@@ -165,7 +165,7 @@ const config = {
         height: 430
     },
     url : {
-        geoJSON : "https://gist.githubusercontent.com/tvalentius/10ef8cbefbacaecada45161b1f3810ce/raw/e5275d5a6ca90b4f0193d2ff151107cbfa0f89bc/indonesia.json",
+        geoJSON : "https://raw.githubusercontent.com/azharisikumbang/covid19-js/master/data/indonesia.json",
         idProvince : "https://api.kawalcorona.com/indonesia/provinsi/",
         mainAPIUrl : "https://api.kawalcorona.com/"
     } 
@@ -250,7 +250,7 @@ async function renderMapElement(){
     mapRenderedElement = document.createElement("div");
 
     const mapTitle = document.createElement("h3");
-    mapTitle.innerHTML = "Peta Sebaran Positif Per Provinsi";
+    mapTitle.innerHTML = "Peta Sebaran Positif Corona Per Provinsi Di Indonesia";
 
     await setProvinces();
 
