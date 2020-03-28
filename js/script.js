@@ -364,7 +364,7 @@ function renderAboutElement(){
   title.innerHTML = "Tentang Aplikasi Monitoring Covid19 Coronavirus";
 
   const p = document.createElement("p");
-  p.innerHTML = "Halaman ini dibuat dengan tujuan mempermudah dalam penyajian informasi tentang covid19 coronavirus di dunia, utamanya Indonesia. <br> Data didapatkan berdasarkan API dari https://kawalcorona.com <br> <br>Data Source : <a href=https://api.kawalcorona.com/ target=_blank>https://api.kawalcorona.com</a> <br>Source Code : <a href=#>githublink</a><br>Info Update Covid : <a href=https://www.covid19.go.id/ target=_blank>https://www.covid19.go.id/</a><br><br>Made with &hearts; by <a href=https://coretanit.com/author/azhari/ target=_blank>Azhari</a>";
+  p.innerHTML = "Halaman ini dibuat dengan tujuan mempermudah dalam penyajian informasi tentang covid19 coronavirus di dunia, utamanya Indonesia. <br> Data didapatkan berdasarkan API dari https://kawalcorona.com <br> <br>Data Source : <a href=https://api.kawalcorona.com/ target=_blank>https://api.kawalcorona.com</a> <br>Source Code : <a href=https://github.com/azharisikumbang/covid19-js>https://github.com/azharisikumbang/covid19-js</a><br>Info Update Covid : <a href=https://www.covid19.go.id/ target=_blank>https://www.covid19.go.id/</a><br><br>Made with &hearts; by <a href=https://coretanit.com/author/azhari/ target=_blank>Azhari</a>";
 
   aboutRenderedElement.append(title)
   aboutRenderedElement.append(p)
@@ -387,6 +387,10 @@ async function setProvinces(){
     }
 }
 
+function numberWithCommas(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(",", ".");
+  }
+
 function createList(title, data, classname) {
 
     let li, liValueEl, liTitleEl, liValue, liTitle;
@@ -401,7 +405,7 @@ function createList(title, data, classname) {
     liValueEl.classList.add("value");
 
     liTitle = document.createTextNode(title);
-    liValue = document.createTextNode(data);
+    liValue = document.createTextNode(numberWithCommas(data));
 
     liTitleEl.append(liTitle);
     liValueEl.append(liValue);
@@ -433,13 +437,13 @@ function creteTable(data, tableTitle, tableCaption, world = true){
             tableBodyCell.innerHTML = d.attributes.Country_Region;
 
             tableBodyCell = tableBody.insertCell();
-            tableBodyCell.innerHTML = d.attributes.Confirmed;
+            tableBodyCell.innerHTML = numberWithCommas(d.attributes.Confirmed);
 
             tableBodyCell = tableBody.insertCell();
-            tableBodyCell.innerHTML = d.attributes.Recovered;
+            tableBodyCell.innerHTML = numberWithCommas(d.attributes.Recovered);
 
             tableBodyCell = tableBody.insertCell();
-            tableBodyCell.innerHTML = d.attributes.Deaths;
+            tableBodyCell.innerHTML = numberWithCommas(d.attributes.Deaths);
         });
     }
 
@@ -453,13 +457,13 @@ function creteTable(data, tableTitle, tableCaption, world = true){
             tableBodyCell.innerHTML = d.Provinsi;
 
             tableBodyCell = tableBody.insertCell();
-            tableBodyCell.innerHTML = d.Kasus_Posi;
+            tableBodyCell.innerHTML = numberWithCommas(d.Kasus_Posi);
 
             tableBodyCell = tableBody.insertCell();
-            tableBodyCell.innerHTML = d.Kasus_Semb;
+            tableBodyCell.innerHTML = numberWithCommas(d.Kasus_Semb);
 
             tableBodyCell = tableBody.insertCell();
-            tableBodyCell.innerHTML = d.Kasus_Meni;
+            tableBodyCell.innerHTML = numberWithCommas(d.Kasus_Meni);
         });
     }
 
