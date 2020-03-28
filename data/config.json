@@ -1,0 +1,147 @@
+[
+	{
+	  "FID": 11,
+	  "name": "DKI Jakarta",
+	  "ObjID": 563
+	},
+	{
+	  "FID": 12,
+	  "name": "Jawa Barat",
+	  "ObjID": 1022
+	},
+	{
+	  "FID": 16,
+	  "name": "Banten",
+	  "ObjID": 1021
+	},
+	{
+	  "FID": 15,
+	  "name": "Jawa Timur",
+	  "ObjID": 1017
+	},
+	{
+	  "FID": 13,
+	  "name": "Jawa Tengah",
+	  "ObjID": 1019
+	},
+	{
+	  "FID": 14,
+	  "name": "Daerah Istimewa Yogyakarta",
+	  "ObjID": 116
+	},
+	{
+	  "FID": 23,
+	  "name": "Kalimantan Timur",
+	  "ObjID": 1079
+	},
+	{
+	  "FID": 17,
+	  "name": "Bali",
+	  "ObjID": 1015
+	},
+	{
+	  "FID": 2,
+	  "name": "Sumatera Utara",
+	  "ObjID": 561
+	},
+	{
+	  "FID": 21,
+	  "name": "Kalimantan Tengah",
+	  "ObjID": 1691
+	},
+	{
+	  "FID": 33,
+	  "name": "Papua",
+	  "ObjID": 557
+	},
+	{
+	  "FID": 3,
+	  "name": "Sumatera Barat",
+	  "ObjID": 117
+	},
+	{
+	  "FID": 10,
+	  "name": "Kepulauan Riau",
+	  "ObjID": 1671
+	},
+	{
+	  "FID": 1,
+	  "name": "Aceh",
+	  "ObjID": 563
+	},
+	{
+	  "FID": 9,
+	  "name": "Lampung",
+	  "ObjID": 1024
+	},
+	{
+	  "FID": 20,
+	  "name": "Kalimantan Barat",
+	  "ObjID": 1044
+	},
+	{
+	  "FID": 28,
+	  "name": "Sulawesi Tenggara",
+	  "ObjID": 523
+	},
+	{
+	  "FID": 18,
+	  "name": "Nusa Tenggara Barat",
+	  "ObjID": 556
+	},
+	{
+	  "FID": 24,
+	  "name": "Kalimantan Utara",
+	  "ObjID": 1079
+	},
+	{
+	  "FID": 25,
+	  "name": "Sulawesi Utara",
+	  "ObjID": 150
+	},
+	{
+	  "FID": 26,
+	  "name": "Sulawesi Tengah",
+	  "ObjID": 559
+	},
+	{
+	  "FID": 34,
+	  "name": "Papua Barat",
+	  "ObjID": 1670
+	},
+	{
+	  "FID": 4,
+	  "name": "Riau",
+	  "ObjID": 136
+	},
+	{
+	  "FID": 5,
+	  "name": "Jambi",
+	  "ObjID": 1700
+	},
+	{
+	  "FID": 22,
+	  "name": "Kalimantan Selatan",
+	  "ObjID": 940
+	},
+	{
+	  "FID": 31,
+	  "name": "Maluku",
+	  "ObjID": 104
+	},
+	{
+	  "FID": 32,
+	  "name": "Maluku Utara",
+	  "ObjID": 133
+	},
+	{
+	  "FID": 6,
+	  "name": "Sumatera Selatan",
+	  "ObjID": 1103
+	},
+	{
+	  "FID": 27,
+	  "name": "Sulawesi Selatan",
+	  "ObjID": 1020
+	}
+]
