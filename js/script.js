@@ -95,7 +95,7 @@ const config = {
         {
           "FID": 24,
           "name": "Kalimantan Utara",
-          "ObjID": 1079
+          "ObjID": 3700
         },
         {
           "FID": 25,
@@ -146,7 +146,22 @@ const config = {
           "FID": 27,
           "name": "Sulawesi Selatan",
           "ObjID": 1020
-        }
+        },
+        {
+          "FID": 7,
+          "name": "Bengkulu",
+          "ObjID": 1026
+        },
+        {
+          "FID": 8,
+          "name": "Kepulauan Bangka Belitung",
+          "ObjID": 1029
+        },
+        {
+          "FID": 30,
+          "name": "Sulawesi Barat",
+          "ObjID": 1078
+        },
     ],
     data : {
         indonesia : {
@@ -308,6 +323,9 @@ async function renderMapElement(){
                 }
             })
 
+        console.log(data.objects.states_provinces)
+        data.objects.states_provinces.geometries.map((s, index) => console.log(index + "-" + s.properties.name + " - " + s.properties.OBJECTID_1)) 
+
         g.append("path")
             .datum(topojson.mesh(data, data.objects.states_provinces, function(a, b) {
                 return a !== b;
@@ -378,9 +396,9 @@ async function setProvinces(){
         .then(res => {
             res.map(d => {
                 config.provinceDataDefault.map(e => {
-                    if(e.FID == d.attributes.FID) {
+                    if(e.FID === d.attributes.FID) {
                         config.data.indonesia.provinces.push({...d.attributes, ...e})
-                    }
+                    } 
                 })
             })
         })
@@ -388,7 +406,7 @@ async function setProvinces(){
 }
 
 function numberWithCommas(num){
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(",", ".");
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(",", ".").replace(",", ".");
   }
 
 function createList(title, data, classname) {
